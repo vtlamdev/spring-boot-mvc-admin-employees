@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="_layout">
+<head>
+  <meta charset="UTF-8">
+  <title>List Jobs</title>
+  <link rel="stylesheet" th:href="@{../static/bootstrap.min.css}">
+  <script th:src="@{../static/bootstrap.min.js}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="container">
+    <h3 class="text-center"><span th:text="${job.jobTitle}"></span></h3>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">
+          Id
+        </th>
+        <th scope="col">
+          First name
+        </th>
+        <th scope="col">
+          Last name
+        </th>
+        <th scope="col">
+          Email
+        </th>
+        <th scope="col">
+          Phone number
+        </th>
+        <th scope="col">
+          Hiring date
+        </th>
+        <th scope="col">
+          Job
+        </th>
+        <th scope="col">
+          Salary
+        </th>
+        <th scope="col">
+          Manager
+        </th>
+        <th scope="col">
+          Department
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="employee : ${job.getEmployees()}">
+        <th scope="row" th:text="${employee.employee_id}"></th>
+        <td th:text="${employee.firstName}"></td>
+        <td th:text="${employee.lastName}"></td>
+        <td th:text="${employee.email}"></td>
+        <td th:text="${employee.phoneNumber}"></td>
+        <td th:text="${employee.hireDate}"></td>
+        <td th:text="${employee.job.jobTitle}"></td>
+        <td th:text="${employee.salary}"></td>
+        <td th:if="${employee.manager != null}" th:text="${employee.manager.firstName}+' '+${employee.manager.lastName}"></td>
+        <td th:unless="${employee.manager != null}"> </td>
+        <td th:text="${employee.department.departmentName}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

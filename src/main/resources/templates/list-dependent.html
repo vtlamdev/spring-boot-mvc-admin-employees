@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="_layout">
+<head>
+  <meta charset="UTF-8">
+  <title>List dependents</title>
+  <link rel="stylesheet" th:href="@{../static/bootstrap.min.css}">
+  <script th:src="@{../static/bootstrap.min.js}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="container">
+    <h3>List jobs</h3>
+    <a th:href="@{/dependents/showFormForAdd}" class="btn btn-primary">Add dependent</a>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">
+          Id
+        </th>
+        <th scope="col">
+          First name
+        </th>
+        <th scope="col">
+          Last name
+        </th>
+        <th scope="col">
+          Relationship
+        </th>
+        <th scope="col">
+          Employee
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="dependent : ${dependents}">
+        <th scope="row" th:text="${dependent.dependent_id}"></th>
+        <td th:text="${dependent.firstName}"></td>
+        <td th:text="${dependent.lastName}"></td>
+        <td th:text="${dependent.relationship}"></td>
+        <td th:if="${dependent.employee!=null}" >
+          <a th:href="@{/employees/employee(employeeId=${dependent.employee.employee_id})}"> <span th:text="${dependent.employee.firstName}+ ' '+${dependent.employee.lastName}"></span></a>
+        </td>
+        <td th:unless="${dependent.employee!=null}"></td>
+        <td>
+          <a th:href="@{/dependents/showFormForUpdate(dependentId=${dependent.dependent_id})}">Update</a>
+          <a th:href="@{/jobs/delete(dependentId=${dependent.dependent_id})}" onclick="if (!(confirm('Are you sure to delete this country'))) return false">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

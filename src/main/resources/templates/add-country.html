@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>List countries</title>
+  <link rel="stylesheet" th:href="@{../static/bootstrap.min.css}">
+  <script th:src="@{../static/bootstrap.min.js}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <form th:action="@{/countries/save}" th:object="${country}" method="post">
+      <h3>Update country</h3>
+      <div class="mb-3">
+        <label for="countryid" class="form-label">Country Id</label>
+        <input type="text" class="form-control" id="countryid" th:field="*{countryId}" aria-describedby="countryIdHelp">
+        <div id="countryIdHelp" class="form-text">
+        <span th:if="${#fields.hasErrors('countryId')}" th:errors="*{countryId}" class="text-danger"></span>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="countryname" class="form-label">Country name</label>
+        <input type="text" id="countryname" th:field="*{countryName}" class="form-control" aria-describedby="countryNameHelp">
+        <div id="countryNameHelp" class="form-text">
+          <span th:if="${#fields.hasErrors('countryName')}" th:errors="*{countryName}" class="text-danger"></span>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="listRegion" class="form-label">List region</label>
+        <select class="form-control" th:field="${country.regionId}" id="listRegion">
+          <option th:each="region:${regions}" th:value="${region.region_id}" th:text="${region.regionName}"></option>
+        </select>
+      </div>
+      <input type="submit" class="btn btn-primary">
+    </form>
+  </div>
+</body>
+</html>
