@@ -7,5 +7,7 @@ import java.util.List;
 public interface EmployeeService {
     List<Employee> findAllEmplooyees();
     Employee findEmployeeById(int id);
+    Employee addEmployee(Employee employee);
+    void deleteEmployeeById(int id);
     List<Employee> findAllEmployeeAndDependentByJoinFetch();
 }

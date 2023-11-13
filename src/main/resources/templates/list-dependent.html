@@ -13,7 +13,7 @@
 <body>
 <div layout:fragment="content">
   <div class="container">
-    <h3>List jobs</h3>
+    <h3>List dependents</h3>
     <a th:href="@{/dependents/showFormForAdd}" class="btn btn-primary">Add dependent</a>
     <table class="table table-striped">
       <thead>
@@ -47,7 +47,7 @@
         <td th:unless="${dependent.employee!=null}"></td>
         <td>
           <a th:href="@{/dependents/showFormForUpdate(dependentId=${dependent.dependent_id})}">Update</a>
-          <a th:href="@{/jobs/delete(dependentId=${dependent.dependent_id})}" onclick="if (!(confirm('Are you sure to delete this country'))) return false">Delete</a>
+          <a th:href="@{/dependents/delete(dependentId=${dependent.dependent_id})}" onclick="if (!(confirm('Are you sure to delete this country'))) return false">Delete</a>
         </td>
       </tr>
       </tbody>

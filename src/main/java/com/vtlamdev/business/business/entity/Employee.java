@@ -3,6 +3,7 @@ package com.vtlamdev.business.business.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -28,6 +29,7 @@ public class Employee {
     private String phoneNumber;
     @NotNull(message = "Is required")
     @Column(name = "hire_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date hireDate;
     @ManyToOne
     @JoinColumn(name = "job_id",insertable = false,updatable = false)
@@ -48,11 +50,11 @@ public class Employee {
     @Column(name = "department_id")
     private int departmentId;
 
-    @OneToOne(mappedBy = "employee")
-    private Dependent dependent;
+    @OneToMany(mappedBy = "employee")
+    private List<Dependent> dependents;
     public Employee(){}
 
-    public Employee(String firstName, String lastName, String email, String phoneNumber, Date hireDate, Job job, int jobId, double salary, Employee manager, int managerId, Department department, int departmentId, Dependent dependent) {
+    public Employee(String firstName, String lastName, String email, String phoneNumber, Date hireDate, Job job, int jobId, double salary, Employee manager, Integer managerId, Department department, int departmentId, List<Dependent> dependents) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -65,7 +67,7 @@ public class Employee {
         this.managerId = managerId;
         this.department = department;
         this.departmentId = departmentId;
-        this.dependent = dependent;
+        this.dependents = dependents;
     }
 
     public int getEmployee_id() {
@@ -148,12 +150,12 @@ public class Employee {
         this.department = department;
     }
 
-    public Dependent getDependents() {
-        return dependent;
+    public List<Dependent> getDependents() {
+        return dependents;
     }
 
-    public void setDependents(Dependent dependent) {
-        this.dependent = dependent;
+    public void setDependents(List<Dependent> dependents) {
+        this.dependents = dependents;
     }
 
     public int getJobId() {
@@ -164,11 +166,11 @@ public class Employee {
         this.jobId = jobId;
     }
 
-    public int getManagerId() {
+    public Integer getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(int managerId) {
+    public void setManagerId(Integer managerId) {
         this.managerId = managerId;
     }
 
@@ -180,13 +182,7 @@ public class Employee {
         this.departmentId = departmentId;
     }
 
-    public Dependent getDependent() {
-        return dependent;
-    }
 
-    public void setDependent(Dependent dependent) {
-        this.dependent = dependent;
-    }
 
     @Override
     public String toString() {

@@ -23,16 +23,20 @@ public class Dependent {
     @Size(min = 1,message = "Must more than 1 letter")
     @Column(name = "relationship")
     private String relationship;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "employee_id",insertable = false, updatable = false)
     private Employee employee;
-    public Dependent(){}
+    @Column(name = "employee_id")
+    private int employeeId;
+    public Dependent(){
+    }
 
-    public Dependent(String firstName, String lastName, String relationship, Employee employee) {
+    public Dependent(String firstName, String lastName, String relationship, Employee employee, int employeeId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.relationship = relationship;
         this.employee = employee;
+        this.employeeId = employeeId;
     }
 
     public int getDependent_id() {
@@ -75,6 +79,13 @@ public class Dependent {
         this.employee = employee;
     }
 
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
 
     @Override
     public String toString() {
